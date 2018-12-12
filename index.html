@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,300,600" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <link type="text/css" rel="stylesheet" href="blackjack.css">
+        
+        <title>Blackjack</title>
+    </head>
+
+    <body>
+        
+        
+        <div class="wrapper clearfix">
+            
+            <div class="player-panel active">
+                <div class="player-name" id="player">Player</div>
+                <div class="player-score" id="player-score">0</div>
+                <div class="hand">
+                    <div id="player-hand"></div>
+                    <div id="player-hand1"></div>
+                    <div id="player-hand2"></div>    
+                </div>
+                
+            </div>
+            
+            <div class="dealer-panel">
+                <div class="player-name" id="dealer">Dealer</div>
+                <div class="player-score" id="dealer-score">0</div>
+                <div class="hand">
+                    <div id="dealer-hand"></div>
+                    <div id="dealer-hand1"></div>
+                    <div id="dealer-hand2"></div>
+                </div>
+            </div>
+            
+            
+            <!--<img id = "logo" src = "card.jpg" height = "225" width = "150"></img>-->
+            
+            
+            <button class="btn-deal"><i class="fas fa-redo"></i>Deal</button>
+            <button class="btn-split"><i class="fas fa-share-alt"></i>Split!</button>
+            <button class="btn-surrender"><i class="far fa-flag"></i>Surrender!</button>
+            <button class="btn-double"><i class="fab fa-angellist"></i>Double Down!</button>
+            <button class="btn-hit"><i class="fas fa-plus-circle"></i>Hit!</button>
+            <button class="btn-stand"><i class="fas fa-hand-paper"></i>Stand!</button>
+            
+            
+            
+            <input type="number" step = "100" min = "0" max = "1000" placeholder="Enter bet size" class="bet-size">
+            
+            <div id="bankroll"></div>
+            
+            
+        </div>
+
+
+
+        <script type="text/javascript" src="blackjack.js"></script>
+        
+        
+    </body>
+</html>

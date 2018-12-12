@@ -1,0 +1,184 @@
+.bet-size {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 480px;
+    color: #000;
+    font-size: 18px;
+    font-family: 'Lato';
+    text-align: center;
+    padding: 10px;
+    width: 200px;
+    text-transform: uppercase;
+    border: 1px solid black;
+}
+
+#bankroll {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 530px;
+    color: #000;
+    font-size: 18px;
+    font-family: 'Lato';
+    text-align: center;
+    padding: 10px;
+    width: 200px;
+    text-transform: uppercase;
+    border: 1px solid black;
+    background-color: #FFF;
+}
+
+#logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 110px;
+}
+
+.hand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    margin-top: 100px
+}
+
+.hand img {
+    border: 1px solid black;
+}
+
+.final-score:focus { outline: none; }
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+body {
+    background-image: url("vegas.jpg");
+    background-size: cover;
+    background-position: center;
+    /*background-color: rgba(0,99,0,.8);*/
+    font-family: Lato;
+    font-weight: 300;
+    position: relative;
+    height: 100vh;
+    color: #555;
+}
+
+.wrapper {
+    width: 1000px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: 0px 10px 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.player-panel,
+.dealer-panel {
+    width: 50%;
+    float: left;
+    height: 600px;
+    padding: 20px;
+}
+
+
+
+/**********************************************
+*** PLAYERS
+**********************************************/
+
+.player-name {
+    color: #000;
+    font-size: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 100;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.player-score {
+    text-align: center;
+    font-size: 80px;
+    font-weight: 100;
+    color: #000;
+    margin-bottom: 30px;
+}
+
+.active { background-color: #f7f7f7; }
+.active .player-name { font-weight: 300; }
+
+button {
+    position: absolute;
+    width: 220px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #555;
+    background: none;
+    border: none;
+    font-family: Lato;
+    font-size: 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 300;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover { font-weight: 600; }
+button:hover i { margin-right: 20px; }
+
+button:focus {
+    outline: none;
+}
+
+.fa-plus-circle {
+    color: #009933;
+}
+
+.fa-hand-paper {
+    color: #FF0000;
+}
+
+
+
+i {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 32px;
+    line-height: 1;
+    vertical-align: text-top;
+    margin-top: -4px;
+    transition: margin 0.3s;
+}
+
+.btn-deal { top: 60px;}
+.btn-hit { top: 350px;}
+.btn-stand { top: 400px;}
+.btn-double { top: 270px; }
+.btn-surrender { top: 220px; }
+.btn-split { top: 170px; }
+
+
+.winner { background-color: #84E184; }
+.winner .player-name { font-weight: 600; }
+
+.loser { background-color: #FF9999; }
+.loser .player-name { font-weight: 600; }
+
+.draw { background-color: #FFFF80; }
