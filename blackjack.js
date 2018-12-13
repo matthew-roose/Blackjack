@@ -44,13 +44,6 @@ function Player() {
         }
     };
     
-    // this.returnCards = function() {
-    //     for(var i=0; i<this.hand.length; i++) {
-    //         deck.push(this.hand[i]);
-    //     }
-    //     this.hand = [];
-    // };
-    
     this.returnCards = function() {
         while(this.hand.length>0) {
             deck.push(this.hand.pop());
@@ -188,12 +181,13 @@ function drawOut() {
     
     
     while(dealer.total<17) {
-        dealer.drawCard(dealCard());
-        dealer.total = 0;
-        dealer.aceCount = 0;
-        document.querySelector("#dealer-hand").innerHTML = "";
-        for(var j=0; j<dealer.hand.length; j++) {
-            dealer.total+=(dealer.hand[j].value);
+        // setTimeout(function (){
+            dealer.drawCard(dealCard());
+            dealer.total = 0;
+            dealer.aceCount = 0;
+            document.querySelector("#dealer-hand").innerHTML = "";
+            for(var j=0; j<dealer.hand.length; j++) {
+                dealer.total+=(dealer.hand[j].value);
             if (dealer.hand[j].rank===("Ace")) {
                 dealer.aceCount+=1;
             }
@@ -202,8 +196,11 @@ function drawOut() {
                 dealer.total-=10;
             }
             document.querySelector("#dealer-hand").innerHTML += "<img src=./Cards/" + dealer.hand[j].rank + "_of_" + dealer.hand[j].suit + ".png " + "height='90' width='60'</img>";
-        }
-        document.querySelector("#dealer-score").textContent = dealer.total;
+            }
+            document.querySelector("#dealer-score").textContent = dealer.total;
+            
+        // }, 500);
+        
     }
            
     if(dealer.total>21) {
@@ -278,7 +275,11 @@ function takeCard() {
 
 function bankrupt() {
     if(player.bankroll===0) {
-        setTimeout(function() {alert("You have $0 left. Hit the ATM or refresh the page!");}, 500);
+        document.body.style.backgroundImage = 'url("ATM.jpg")';
+        setTimeout(function() {
+            alert("You have $0 left. Hit the ATM or refresh the page!");
+            document.querySelector(".wrapper").style.display = "none";
+        }, 500);
     }
 }
 
@@ -333,10 +334,10 @@ document.querySelector('.btn-deal').addEventListener('click', function() {
             alert("Please enter a bet amount.");
         } else if(bet<1) {
             alert("Bet amount must be positive.");
-        } else if (bet>1000) {
-            alert("Bet amount must be between 1-1000.");
+        } else if (bet>10000) {
+            alert("Bet amount must be between 1-10000.");
         } else if (bet%1 !== 0) {
-            alert("Please enter a whole number between 1-1000.");
+            alert("Please enter a whole number between 1-10000.");
         } else if (bet>player.bankroll) {
             alert("You don't have that much to bet. You have $" + player.bankroll +".");
         } else {
@@ -388,14 +389,17 @@ document.querySelector('.btn-stand').addEventListener('click', function() {
 
 document.querySelector('.btn-double').addEventListener('click', function() {
     if(player.total<21&&playing) {
-        bet = bet*2;
-        takeCard();
-        hideButtons();
-        if(player.total<21) {
-            drawOut();
+        if(player.bankroll<bet*2) {
+            alert("You don't have enough to double your bet. You have " + player.bankroll + " and your bet was " + bet + ".");
+        } else {
+            bet = bet*2;
+            takeCard();
+            hideButtons();
+            if(player.total<21) {
+                drawOut();
+            }
+            playing = false;
         }
-        playing = false;
-
     }
 });
 

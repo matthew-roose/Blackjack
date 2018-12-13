@@ -58,17 +58,11 @@
     
 }
 
-.clearfix::after {
-    content: "";
-    display: table;
-    clear: both;
-}
 
 body {
     background-image: url("vegas.jpg");
     background-size: cover;
     background-position: center;
-    /*background-color: rgba(0,99,0,.8);*/
     font-family: Lato;
     font-weight: 300;
     position: relative;
@@ -118,10 +112,10 @@ body {
     font-size: 80px;
     font-weight: 100;
     color: #000;
-    margin-bottom: 30px;
 }
 
 .active { background-color: #f7f7f7; }
+
 .active .player-name { font-weight: 300; }
 
 button {
