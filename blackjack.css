@@ -121,6 +121,7 @@ body {
 button {
     position: absolute;
     width: 220px;
+    height: 40px;
     left: 50%;
     transform: translateX(-50%);
     color: #555;
