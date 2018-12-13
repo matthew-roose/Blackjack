@@ -48,6 +48,28 @@
     border: 1px solid black;
 }
 
+.chips {
+    position: absolute;
+    bottom: 19px;
+    justify-content: space-between;
+}
+
+.specific-chips {
+    height: 73px;
+}
+
+.specific-chips img {
+    height: 70px;
+    width: 70px;
+    margin-right: 10px;
+    transition: transform .1s;
+}
+
+.chips img:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
 .final-score:focus { outline: none; }
 
 
@@ -129,10 +151,9 @@ button {
     border: none;
     font-family: Lato;
     font-size: 20px;
-    text-transform: uppercase;
     cursor: pointer;
+    text-transform: uppercase;
     font-weight: 300;
-    transition: background-color 0.3s, color 0.3s;
 }
 
 button:hover { font-weight: 600; }
@@ -158,16 +179,17 @@ i {
     font-size: 32px;
     line-height: 1;
     vertical-align: text-top;
+    /*transition: margin 0.3s;*/
     margin-top: -4px;
-    transition: margin 0.3s;
 }
 
 .btn-deal { top: 60px;}
-.btn-hit { top: 350px;}
-.btn-stand { top: 400px;}
-.btn-double { top: 270px; }
-.btn-surrender { top: 220px; }
-.btn-split { top: 170px; }
+.btn-hit { top: 360px;}
+.btn-stand { top: 410px;}
+.btn-insurance { top: 310px; }
+.btn-double { top: 260px; }
+.btn-surrender { top: 210px; }
+.btn-split { top: 160px; }
 
 
 .winner { background-color: #84E184; }

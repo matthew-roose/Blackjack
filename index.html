@@ -22,7 +22,17 @@
                     <div id="player-hand1"></div>
                     <div id="player-hand2"></div>    
                 </div>
-                
+                <div class="chips">
+                    <span class="specific-chips" id="ten">
+                        <img src="./Chips/10.png">
+                    </span>
+                    <span class="specific-chips" id="fifty">
+                        <img src="./Chips/50.png">
+                    </span>
+                    <span class="specific-chips" id="hundred">
+                        <img src="./Chips/100.png">
+                    </span>
+                </div>    
             </div>
             
             <div class="dealer-panel">
@@ -39,16 +49,17 @@
             <!--<img id = "logo" src = "card.jpg" height = "225" width = "150"></img>-->
             
             
-            <button class="btn-deal"><i class="fas fa-redo"></i>Deal</button>
+            <button class="btn-deal"><i class="fas fa-redo"></i>Deal!</button>
             <button class="btn-split"><i class="fas fa-share-alt"></i>Split!</button>
             <button class="btn-surrender"><i class="far fa-flag"></i>Surrender!</button>
             <button class="btn-double"><i class="fab fa-angellist"></i>Double Down!</button>
+            <button class="btn-insurance"><i class="fas fa-dollar-sign"></i>Insurance!</button>
             <button class="btn-hit"><i class="fas fa-plus-circle"></i>Hit!</button>
             <button class="btn-stand"><i class="fas fa-hand-paper"></i>Stand!</button>
             
             
             
-            <input type="number" step = "100" min = "0" max = "1000" placeholder="Enter bet size" class="bet-size">
+            <input type="number" step = "100" min = "0" max = "10000" placeholder="Enter bet size" class="bet-size">
             
             <div id="bankroll"></div>
             

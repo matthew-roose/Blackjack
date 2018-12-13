@@ -129,6 +129,7 @@ function hideButtons() {
     document.querySelector(".btn-split").style.display = "none";
     document.querySelector(".btn-surrender").style.display = "none";
     document.querySelector(".btn-double").style.display = "none";
+    document.querySelector(".btn-insurance").style.display = "none";
     document.querySelector(".btn-hit").style.display = "none";
     document.querySelector(".btn-stand").style.display = "none";
 }
@@ -275,7 +276,6 @@ function takeCard() {
 
 function bankrupt() {
     if(player.bankroll===0) {
-        document.body.style.backgroundImage = 'url("ATM.jpg")';
         setTimeout(function() {
             alert("You have $0 left. Hit the ATM or refresh the page!");
             document.querySelector(".wrapper").style.display = "none";
@@ -327,7 +327,7 @@ createDeck();
 
 document.querySelector("#bankroll").textContent = "BANKROLL: $" + 1000;
 
-document.querySelector('.btn-deal').addEventListener('click', function() {
+document.querySelector(".btn-deal").addEventListener("click", function() {
     if(!playing) {
         init();
         if(!bet) {
@@ -370,7 +370,7 @@ document.querySelector('.btn-deal').addEventListener('click', function() {
 });
 
 
-document.querySelector('.btn-hit').addEventListener('click', function() {
+document.querySelector(".btn-hit").addEventListener("click", function() {
     if(player.total<21&&playing) {
         takeCard();
         document.querySelector(".btn-split").style.display = "none";
@@ -380,14 +380,14 @@ document.querySelector('.btn-hit').addEventListener('click', function() {
 });
 
 
-document.querySelector('.btn-stand').addEventListener('click', function() {
+document.querySelector(".btn-stand").addEventListener("click", function() {
     if(player.total<21&&playing) {
         hideButtons();
         drawOut();
     }
 });
 
-document.querySelector('.btn-double').addEventListener('click', function() {
+document.querySelector(".btn-double").addEventListener("click", function() {
     if(player.total<21&&playing) {
         if(player.bankroll<bet*2) {
             alert("You don't have enough to double your bet. You have " + player.bankroll + " and your bet was " + bet + ".");
@@ -403,7 +403,7 @@ document.querySelector('.btn-double').addEventListener('click', function() {
     }
 });
 
-document.querySelector('.btn-surrender').addEventListener('click', function() {
+document.querySelector(".btn-surrender").addEventListener("click", function() {
     if(player.total<21&&playing) {
         document.querySelector(".player-panel").classList.add("loser");
         document.querySelector("#player").textContent = "SURRENDERED!";
@@ -417,6 +417,23 @@ document.querySelector('.btn-surrender').addEventListener('click', function() {
         document.querySelector("#bankroll").textContent = "BANKROLL: $" + player.bankroll;
         playing = false;
     }
+});
+
+var currentBet = Number(document.querySelector(".bet-size").value);
+
+document.querySelector("#ten").addEventListener("click", function() {
+    currentBet += 10;
+    // document.querySelector(".bet-size").textContent = currentBet;
+});
+
+document.querySelector("#fifty").addEventListener("click", function() {
+    currentBet += 50;
+//     // document.querySelector(".bet-size").textContent = currentBet;
+});
+
+document.querySelector("#hundred").addEventListener("click", function() {
+    currentBet += 100;
+//     // document.querySelector(".bet-size").textContent = currentBet;
 });
 
 
