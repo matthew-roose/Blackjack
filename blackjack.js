@@ -129,7 +129,7 @@ function hideButtons() {
     document.querySelector(".btn-split").style.display = "none";
     document.querySelector(".btn-surrender").style.display = "none";
     document.querySelector(".btn-double").style.display = "none";
-    document.querySelector(".btn-insurance").style.display = "none";
+    // document.querySelector(".btn-insurance").style.display = "none";
     document.querySelector(".btn-hit").style.display = "none";
     document.querySelector(".btn-stand").style.display = "none";
 }
