@@ -1,4 +1,4 @@
-.bet-size {
+#bet-size {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -11,6 +11,23 @@
     width: 200px;
     text-transform: uppercase;
     border: 1px solid black;
+    background-color: #FFF;
+}
+
+#current-bet {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 480px;
+    color: #000;
+    font-size: 18px;
+    font-family: 'Lato';
+    text-align: center;
+    padding: 10px;
+    width: 200px;
+    text-transform: uppercase;
+    border: 1px solid black;
+    background-color: #FFF;
 }
 
 #bankroll {
@@ -33,20 +50,61 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 110px;
+    top: 170px;
 }
 
-.hand {
+
+.center {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 150px;
-    margin-top: 100px
+    height: 120px;
 }
 
 .hand img {
     border: 1px solid black;
 }
+
+
+#player-hand {
+    align-items: center;
+    height: 120px;
+    position: absolute;
+    top: 280px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+#player-hand1 {
+    display: flex;
+    align-items: center;
+    height: 120px;
+    position: absolute;
+    top: 220px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+#player-hand2 {
+    display: flex;
+    align-items: center;
+    height: 120px;
+    position: absolute;
+    top: 340px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+#dealer-hand {
+    display: flex;
+    align-items: center;
+    height: 120px;
+    position: absolute;
+    top: 280px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
 
 .chips {
     position: absolute;
@@ -110,12 +168,6 @@ body {
     height: 600px;
     padding: 20px;
 }
-
-
-
-/**********************************************
-*** PLAYERS
-**********************************************/
 
 .player-name {
     color: #000;
@@ -184,12 +236,12 @@ i {
 }
 
 .btn-deal { top: 60px;}
-.btn-hit { top: 360px;}
-.btn-stand { top: 410px;}
-.btn-insurance { top: 310px; }
-.btn-double { top: 260px; }
-.btn-surrender { top: 210px; }
-.btn-split { top: 160px; }
+.btn-hit { top: 320px;}
+.btn-stand { top: 370px;}
+.btn-double { top: 250px; }
+.btn-surrender { top: 200px; }
+.btn-split { top: 150px; }
+.btn-clear { top: 435px; }
 
 
 .winner { background-color: #84E184; }

@@ -17,10 +17,14 @@
             <div class="player-panel active">
                 <div class="player-name" id="player">Player</div>
                 <div class="player-score" id="player-score">0</div>
-                <div class="hand">
-                    <div id="player-hand"></div>
-                    <div id="player-hand1"></div>
-                    <div id="player-hand2"></div>    
+                <div class="center">
+                    <div id="player-hand" class="hand"></div>
+                </div>    
+                <div class="center">
+                    <div id="player-hand1" class="hand"></div>
+                </div>    
+                <div class="center">    
+                    <div id="player-hand2" class="hand"></div>    
                 </div>
                 <div class="chips">
                     <span class="specific-chips" id="ten">
@@ -38,28 +42,30 @@
             <div class="dealer-panel">
                 <div class="player-name" id="dealer">Dealer</div>
                 <div class="player-score" id="dealer-score">0</div>
-                <div class="hand">
-                    <div id="dealer-hand"></div>
-                    <div id="dealer-hand1"></div>
-                    <div id="dealer-hand2"></div>
+                <div class="center">
+                    <div id="dealer-hand" class="hand"></div>
                 </div>
             </div>
             
             
-            <!--<img id = "logo" src = "card.jpg" height = "225" width = "150"></img>-->
+            <img id = "logo" src = "card.jpg" height = "225" width = "150"></img>
             
             
             <button class="btn-deal"><i class="fas fa-redo"></i>Deal!</button>
             <button class="btn-split"><i class="fas fa-share-alt"></i>Split!</button>
             <button class="btn-surrender"><i class="far fa-flag"></i>Surrender!</button>
             <button class="btn-double"><i class="fab fa-angellist"></i>Double Down!</button>
-            <!--<button class="btn-insurance"><i class="fas fa-dollar-sign"></i>Insurance!</button>-->
             <button class="btn-hit"><i class="fas fa-plus-circle"></i>Hit!</button>
             <button class="btn-stand"><i class="fas fa-hand-paper"></i>Stand!</button>
+            <button class="btn-clear"><i class="far fa-times-circle"></i>Clear bet!</button>
             
             
             
-            <input type="number" step = "100" min = "0" max = "10000" placeholder="Enter bet size" class="bet-size">
+            <!--<input type="number" step = "100" min = "0" max = "10000" placeholder="Enter bet size" class="bet-size">-->
+            
+            <div id="current-bet"></div>
+            
+            <div id="bet-size">Place bet: $0</div>
             
             <div id="bankroll"></div>
             
