@@ -149,9 +149,7 @@ var split2 = false;
 var blackjack1 = false;
 var blackjack2 = false;
 var surrendered1 = false;
-var surrendered2 = false;
 var doubled1 = false;
-var doubled2 = false;
 var bet;
 var chipBet = 0;
 
@@ -218,9 +216,8 @@ function init() {
     blackjack1 = false;
     blackjack2 = false;
     surrendered1 = false;
-    surrendered2 = false;
     doubled1 = false;
-    doubled2 = false;
+    //don't need to track double or surrender for 2nd hand because hand ends when 2nd hand clicks either button
     document.querySelector("#bet-size").style.display = "none";
     document.querySelector("#current-bet").style.display = "block";
     document.querySelector(".btn-clear").style.display = "none";
@@ -314,6 +311,7 @@ function compareSplit(splitScore, handNo, thisBet) {
         }
     } else if(dealer.total>splitScore) {
         player.bankroll -= thisBet;
+        bankrupt();
         document.querySelector("#player-hand"+handNo).style.backgroundColor = "#FF9999";
     } else if(dealer.total<splitScore) {
         player.bankroll += thisBet;
@@ -444,7 +442,7 @@ function takeCard() {
                 
                 if(player.total1>21) {
                     dealerReveal();
-                } else if(player.total1<=21 && !blackjack1) {
+                } else if(player.total1<=21 && !blackjack1 && !surrendered1) {
                     drawOut();
                     if(!doubled1) {
                         compareSplit(player.total1, 1, bet);
@@ -612,7 +610,7 @@ document.querySelector(".btn-stand").addEventListener("click", function() {
 
     } else if(split2) {
         drawOut();
-        if(player.total1<22&&!blackjack1) {
+        if(player.total1<22 && !blackjack1 && !surrendered1) {
             if(!doubled1) {
                 compareSplit(player.total1, 1, bet);
             } else {
@@ -678,11 +676,11 @@ document.querySelector(".btn-double").addEventListener("click", function() {
                 ////not 2x because takeCard() already subtracts 1x for a bust
                 document.querySelector("#bankroll").textContent = "BANKROLL: $" + player.bankroll;
             } 
-            if((player.total1<22 && !blackjack1) || player.total2<22) {
+            if((player.total1<22 && !blackjack1 && !surrendered1) || player.total2<22) {
                 drawOut();
             }
             
-            if(player.total1<22&&!blackjack1) {
+            if(player.total1<22 && !blackjack1 && !surrendered1) {
                 if(!doubled1) {
                     compareSplit(player.total1, 1, bet);
                 } else {
@@ -698,7 +696,7 @@ document.querySelector(".btn-double").addEventListener("click", function() {
 });
 
 document.querySelector(".btn-surrender").addEventListener("click", function() {
-    if(player.total<21) {
+    if(!split1 && !split2) {
         document.querySelector(".player-panel").classList.add("loser");
         document.querySelector("#player").textContent = "SURRENDERED!";
         hideButtons();
@@ -712,7 +710,45 @@ document.querySelector(".btn-surrender").addEventListener("click", function() {
         document.querySelector("#bet-size").style.display = "block";
         document.querySelector(".btn-deal").style.display = "block";
         playing = false;
+    } else if(split1) {
+        player.bankroll -= (.5*bet);
+        document.querySelector("#player-hand1").style.backgroundColor = "#FF9999";
+        document.querySelector("#bankroll").textContent = "BANKROLL: $" + player.bankroll;
+        surrendered1 = true;
+        if(!blackjack2) {
+            document.querySelector("#player-hand2").style.backgroundColor = "#FFFF80";
+            document.querySelector("#player-score").textContent = player.total2;
+            split1 = false;
+            split2 = true;
+            document.querySelector(".btn-surrender").style.display = "block";
+            document.querySelector(".btn-double").style.display = "block";
+        } else {
+            playing = false;
+            hideButtons();
+        }
+    } else if(split2) {
+        player.bankroll -= (.5*bet);
+        document.querySelector("#player-hand2").style.backgroundColor = "#FF9999";
+        document.querySelector("#bankroll").textContent = "BANKROLL: $" + player.bankroll;
+        if(player.total1<22 && !blackjack1 && !surrendered1) {
+            drawOut();
+            if(!doubled1) {
+                compareSplit(player.total1, 1, bet);
+            } else {
+                compareSplit(player.total1, 1, bet*2);
+            }
+        } else {
+            dealerReveal();
+        }
+        playing = false;
+        hideButtons();
+        document.querySelector("#bet-size").style.display = "block";
+        document.querySelector(".btn-deal").style.display = "block";
     }
+    
+    
+    
+    
 });
 
 
@@ -818,6 +854,20 @@ document.querySelector("#hundred").addEventListener("click", function() {
         document.querySelector(".btn-clear").style.display = "block";
     }
 });
+
+document.querySelector(".help").addEventListener("click", function() {
+    document.querySelector(".help-popup").style.display = "block";
+});
+
+document.querySelector(".close").addEventListener("click", function() {
+    document.querySelector(".help-popup").style.display = "none";
+});
+
+window.onclick = function(event) {
+    if(event.target === document.querySelector(".help-popup")) {
+        document.querySelector(".help-popup").style.display = "none";
+    }
+};
 
 
 
