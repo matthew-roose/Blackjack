@@ -433,12 +433,14 @@ function takeCard() {
             
   
             if(player.total2>21) {
+                player.bankroll -= bet;
                 document.querySelector("#player-hand2").style.backgroundColor = "#FF9999";
                 document.querySelector(".btn-deal").style.display = "block";
-                document.querySelector(".btn-hit").style.display = "none";
-                document.querySelector(".btn-stand").style.display = "none";
+                document.querySelector(".btn-clear").style.display = "block";
+                document.querySelector("#bet-size").style.display = "block";
+                hideButtons();
                 playing = false;
-                player.bankroll -= bet;
+                
                 
                 if(player.total1>21) {
                     dealerReveal();
@@ -453,8 +455,6 @@ function takeCard() {
                     dealerReveal();
                 }
                 
-                document.querySelector("#current-bet").style.display = "none";
-                document.querySelector("#bet-size").style.display = "block";
                 document.querySelector("#bankroll").textContent = "BANKROLL: $" + player.bankroll;
                 bankrupt();
             }
@@ -723,8 +723,13 @@ document.querySelector(".btn-surrender").addEventListener("click", function() {
             document.querySelector(".btn-surrender").style.display = "block";
             document.querySelector(".btn-double").style.display = "block";
         } else {
+            dealerReveal();
             playing = false;
             hideButtons();
+            document.querySelector("#bet-size").style.display = "block";
+            document.querySelector(".btn-deal").style.display = "block";
+            document.querySelector(".btn-clear").style.display = "block";
+
         }
     } else if(split2) {
         player.bankroll -= (.5*bet);
@@ -744,6 +749,8 @@ document.querySelector(".btn-surrender").addEventListener("click", function() {
         hideButtons();
         document.querySelector("#bet-size").style.display = "block";
         document.querySelector(".btn-deal").style.display = "block";
+        document.querySelector(".btn-clear").style.display = "block";
+
     }
     
     
