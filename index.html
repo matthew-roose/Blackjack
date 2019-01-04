@@ -58,13 +58,23 @@
                         <li>Blackjack pays 3-to-2.</li>
                         <li>The objective is to beat the dealer's score without going over 21.</li>
                         <li>The dealer must hit until he reaches 17. He must also hit on 17 if it includes an ace (Soft 17).</li>
-                        <li>Splitting breaks your hand into two hands, each of which you play before the dealer plays.</li>
+                        <li>Splitting breaks your hand into two hands, each of which you play before the dealer plays. (Normally only available when you have a pair, but I left it available on all hands for testing/demonstration purposes).</li>
                         <li>Surrendering forfeits the hand and results in a loss of half your stake.</li>
                         <li>Doubling down draws one more card and doubles your stake.</li>
                         <li>Hitting will add another card to your hand as long as you are under 21. Go over 21 and you lose!</li>
                         <li>Standing will lock in your score and turn the action to the dealer.</li>
                     </ul>
                 </p>
+              </div>
+            </div>
+            
+            <div class="insurance-popup">
+              <div class="insurance-content">
+                    <p>The dealer is showing an Ace. Buy insurance against blackjack for half your stake (pays 2 to 1)?</p>
+                    <div class="insurance-container">
+                        <i id="insurance-yes" class="fas fa-check-circle insurance">Yes!</i>
+                        <i id="insurance-no" class="fas fa-times-circle insurance">No!</i>
+                    </div>
               </div>
             </div>
             
@@ -78,11 +88,8 @@
             <button class="btn-double"><i class="fab fa-angellist"></i>Double Down!</button>
             <button class="btn-hit"><i class="fas fa-plus-circle"></i>Hit!</button>
             <button class="btn-stand"><i class="fas fa-hand-paper"></i>Stand!</button>
-            <button class="btn-clear"><i class="far fa-times-circle"></i>Clear bet!</button>
+            <button class="btn-clear"><i class="fas fa-times"></i>Clear bet!</button>
             
-            
-            
-            <!--<input type="number" step = "100" min = "0" max = "10000" placeholder="Enter bet size" class="bet-size">-->
             
             <div id="current-bet"></div>
             

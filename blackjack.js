@@ -152,9 +152,9 @@ var surrendered1 = false;
 var doubled1 = false;
 var bet;
 var chipBet = 0;
+var insurance = false;
 
 document.querySelector(".btn-clear").style.display = "none";
-
 
 function hideButtons() {
     document.querySelector(".btn-split").style.display = "none";
@@ -184,6 +184,7 @@ function dealerReveal() {
 }
 
 function init() {
+    
     player.returnCards();
     dealer.returnCards();
     document.querySelector("#player-hand").innerHTML = "";
@@ -215,6 +216,7 @@ function init() {
     split2 = false;
     blackjack1 = false;
     blackjack2 = false;
+    insurance = false;
     surrendered1 = false;
     doubled1 = false;
     //don't need to track double or surrender for 2nd hand because hand ends when 2nd hand clicks either button
@@ -225,33 +227,18 @@ function init() {
 }
 
 function drawOut() {
+  
     if(dealer.total>17 || (dealer.total===17&&dealer.aceCount===0)) {
+        return;
+    }
+    
+    // setTimeout(function() {
+        dealer.drawCard(dealCard());
         dealer.total = 0;
         dealer.aceCount = 0;
         document.querySelector("#dealer-hand").innerHTML = "";
-        for(var i=0; i<dealer.hand.length; i++) {
-            dealer.total+=(dealer.hand[i].value);
-            if (dealer.hand[i].rank===("Ace")) {
-                dealer.aceCount+=1;
-            }
-            while (dealer.aceCount>0 && dealer.total>21) {
-                dealer.aceCount-=1;
-                dealer.total-=10;
-            }
-            document.querySelector("#dealer-hand").innerHTML += "<img src=./Cards/" + dealer.hand[i].rank + "_of_" + dealer.hand[i].suit + ".png " + "height='90' width='60'</img>";
-        }
-        document.querySelector("#dealer-score").textContent = dealer.total;
-    }
-    
-    
-    while(dealer.total<17 || (dealer.total===17&&dealer.aceCount>0)) {
-        // setTimeout(function (){
-            dealer.drawCard(dealCard());
-            dealer.total = 0;
-            dealer.aceCount = 0;
-            document.querySelector("#dealer-hand").innerHTML = "";
-            for(var j=0; j<dealer.hand.length; j++) {
-                dealer.total+=(dealer.hand[j].value);
+        for(var j=0; j<dealer.hand.length; j++) {
+            dealer.total+=(dealer.hand[j].value);
             if (dealer.hand[j].rank===("Ace")) {
                 dealer.aceCount+=1;
             }
@@ -260,12 +247,16 @@ function drawOut() {
                 dealer.total-=10;
             }
             document.querySelector("#dealer-hand").innerHTML += "<img src=./Cards/" + dealer.hand[j].rank + "_of_" + dealer.hand[j].suit + ".png " + "height='90' width='60'</img>";
-            }
-            document.querySelector("#dealer-score").textContent = dealer.total;
-            
-        // }, 500);
-        
-    }
+        }
+        document.querySelector("#dealer-score").textContent = dealer.total;
+    // }, 2000);
+    
+    
+    // setTimeout(function() {
+        drawOut();
+    // }, 2000);    
+    //recursive function will draw additional cards until dealer has 17+ and it returns
+
 }
 
 function compare() {
@@ -445,6 +436,7 @@ function takeCard() {
                 if(player.total1>21) {
                     dealerReveal();
                 } else if(player.total1<=21 && !blackjack1 && !surrendered1) {
+                    dealerReveal();
                     drawOut();
                     if(!doubled1) {
                         compareSplit(player.total1, 1, bet);
@@ -470,7 +462,7 @@ function bankrupt() {
         setTimeout(function() {
             alert("You have $0 left. Hit the ATM or refresh the page!");
             document.querySelector(".wrapper").style.display = "none";
-        }, 500);
+        }, 1000);
     }
 }
 
@@ -488,6 +480,11 @@ function blackjack() {
             document.querySelector("#dealer").textContent = "BLACKJACK!";
             document.querySelector(".player-panel").classList.add("draw");
             document.querySelector(".dealer-panel").classList.add("draw");
+            if(insurance) {
+                player.bankroll += bet*1.5;
+                //1.5 because you get your insurance stake back too
+                document.querySelector("#bankroll").textContent = "BANKROLL: $" + player.bankroll;
+            }
         } else if(player.total===21) {
             document.querySelector("#player").textContent = "BLACKJACK!";
             document.querySelector(".player-panel").classList.add("winner");
@@ -498,6 +495,10 @@ function blackjack() {
             document.querySelector(".player-panel").classList.add("loser");
             document.querySelector(".dealer-panel").classList.add("winner");
             player.bankroll -= bet;
+            if(insurance) {
+                player.bankroll += bet*1.5;
+                //1.5 because you get your insurance stake back too
+            }
             document.querySelector("#bankroll").textContent = "BANKROLL: $" + player.bankroll;
             bankrupt();
         }
@@ -566,14 +567,28 @@ document.querySelector(".btn-deal").addEventListener("click", function() {
             playing = true;
             document.querySelector(".btn-deal").style.display = "none";
 
-            
-            blackjack(); //check for player blackjack and end hand if he has it
+            if(dealer.hand[1].rank==="Ace") {
+                document.querySelector(".insurance-popup").style.display = "block";
+            } else {
+                 blackjack(); //check for player blackjack and end hand if he has it
+            }
         }
-        
-        
     }
 });
 
+document.querySelector("#insurance-yes").addEventListener("click", function() {
+    insurance = true;
+    document.querySelector(".insurance-popup").style.display = "none";
+    blackjack();
+    player.bankroll -= bet*.5;
+    document.querySelector("#bankroll").textContent = "BANKROLL: $" + player.bankroll;
+});
+
+document.querySelector("#insurance-no").addEventListener("click", function() {
+    insurance = false;
+    document.querySelector(".insurance-popup").style.display = "none";
+    blackjack();
+});
 
 document.querySelector(".btn-hit").addEventListener("click", function() {
     if(player.total<21 && (player.total1<21 || player.total2<21)) {
@@ -585,6 +600,7 @@ document.querySelector(".btn-hit").addEventListener("click", function() {
 document.querySelector(".btn-stand").addEventListener("click", function() {
     if(!(split1 || split2) && player.total<=21) {
         hideButtons();
+        dealerReveal();
         drawOut();
         compare();
     }
@@ -603,12 +619,14 @@ document.querySelector(".btn-stand").addEventListener("click", function() {
             document.querySelector("#player-hand2").style.backgroundColor = "#FFFF80";
             document.querySelector("#player-score").textContent = player.total2;
         } else {
+            dealerReveal();
             drawOut();
             compareSplit(player.total1, 1, bet);
         }
         
 
     } else if(split2) {
+        dealerReveal();
         drawOut();
         if(player.total1<22 && !blackjack1 && !surrendered1) {
             if(!doubled1) {
@@ -632,6 +650,7 @@ document.querySelector(".btn-double").addEventListener("click", function() {
             takeCard();
             hideButtons();
             if(player.total<=21) {
+                dealerReveal();
                 drawOut();
                 compare();
             }
@@ -660,6 +679,7 @@ document.querySelector(".btn-double").addEventListener("click", function() {
                 document.querySelector(".btn-double").style.display = "block";
                 
             } else if(player.total1<22) {
+                dealerReveal();
                 drawOut();
                 compareSplit(player.total1, 1, bet*2);
                 playing = false;
@@ -677,6 +697,7 @@ document.querySelector(".btn-double").addEventListener("click", function() {
                 document.querySelector("#bankroll").textContent = "BANKROLL: $" + player.bankroll;
             } 
             if((player.total1<22 && !blackjack1 && !surrendered1) || player.total2<22) {
+                dealerReveal();
                 drawOut();
             }
             
@@ -736,6 +757,7 @@ document.querySelector(".btn-surrender").addEventListener("click", function() {
         document.querySelector("#player-hand2").style.backgroundColor = "#FF9999";
         document.querySelector("#bankroll").textContent = "BANKROLL: $" + player.bankroll;
         if(player.total1<22 && !blackjack1 && !surrendered1) {
+            dealerReveal();
             drawOut();
             if(!doubled1) {
                 compareSplit(player.total1, 1, bet);
