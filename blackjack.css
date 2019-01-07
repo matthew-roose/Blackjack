@@ -320,9 +320,14 @@ i {
 }
 
 .insurance-container {
-    width: 100%;
+    margin-top: 10px;
     display: flex;
-    align-items: center;
+    text-align: center;
+}
+
+.center-insurance {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #insurance-yes:hover, #insurance-no:hover {
@@ -332,7 +337,7 @@ i {
 
 #insurance-yes, #insurance-no {
     margin-top: 15px;
-    padding-right: 10px;
+    padding-right: 30px;
 }
 
 .fa-check-circle {
