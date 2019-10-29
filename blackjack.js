@@ -512,9 +512,9 @@ function blackjack() {
         document.querySelector(".btn-double").style.display = "block";
         document.querySelector(".btn-hit").style.display = "block";
         document.querySelector(".btn-stand").style.display = "block";
-        // if(player.hand[0].rank === player.hand[1].rank) {
+        if(player.hand[0].rank === player.hand[1].rank) {
             document.querySelector(".btn-split").style.display = "block";
-        // }
+        }
     }
 }
 
